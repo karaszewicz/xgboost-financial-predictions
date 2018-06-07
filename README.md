@@ -31,7 +31,7 @@ This Code Pattern will walk the user through the following conceptual steps:
 5. Use Matplotlib and it's higher level package seaborn for creating various visualizations.
 6. Use Scikit Learn to create our ML pipeline to prep our data to be fed into XGBoost. 
 7. Use XGBoost to create and train our ML model.
-8. Evaulate their predictive performance.
+8. Evaluate their predictive performance.
 
 ## Included components
 

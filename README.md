@@ -12,23 +12,27 @@ This Code Pattern will walk the user through the following conceptual steps:
 * Exploratory Analysis to understand the data.
 * Use various preprocessing to clean and prepare the data.
 * Use naive XGBoost to run the classification.
-    * Use cross validation to get the model.
-    * Plot, precision recall curve and ROC curve.
+  * Use cross validation to get the model.
+  * Plot, precision recall curve and ROC curve.
 * We will then tune it and use weighted positive samples to improve classification performance.
 * We will also talk about the following advanced techniques.
-    * Oversampling of majority class and Undersampling of minority class.
-    * SMOTE algorithms.
+  * Oversampling of majority class and Undersampling of minority class.
+  * SMOTE algorithms.
 
-![](doc/source/images/architecture.png)
+#### Notebooks
+
+* [predict_bank_cd_subs_by_xgboost_clf_for_imbalance_dataset.ipynb](notebooks/predict_bank_cd_subs_by_xgboost_clf_for_imbalance_dataset.ipynb): The main notebook we'll be using in this exercise.
 
 ## Flow
+
+![](doc/source/images/architecture.png)
 
 1. Log into IBM Watson Studio service.
 2. Upload the data as a data asset into Watson Studio.
 3. Start a notebook in Watson Studio and input the data asset previously created.
 4. Pandas are used to read the data file into a dataframe for initial data exploration.
 5. Use Matplotlib and it's higher level package seaborn for creating various visualizations.
-6. Use Scikit Learn to create our ML pipeline to prep our data to be fed into XGBoost. 
+6. Use Scikit Learn to create our ML pipeline to prep our data to be fed into XGBoost.
 7. Use XGBoost to create and train our ML model.
 8. Evaluate their predictive performance.
 
@@ -56,115 +60,85 @@ This Code Pattern consists of following activities:
 
 ### Run a Jupyter notebook in the IBM Watson Studio
 
-1. [Sign up for the Watson Studio](#1-sign-up-for-the-watson-studio)
-2. [Create a new Watson Studio project](#2-create-a-new-watson-studio-project)
-3. [Create the Spark Service](#3-create-the-spark-service)
-4. [Create the notebook](#4-create-the-notebook)
-5. [Upload data](#5-upload-data)
-6. [Run the notebook](#6-run-the-notebook)
-7. [Save and Share](#7-save-and-share)
+1. [Create a new Watson Studio project](#1-create-a-new-watson-studio-project)
+2. [Create the notebook](#2-create-the-notebook)
+3. [Upload data](#3-upload-data)
+4. [Run the notebook](#4-run-the-notebook)
+5. [Save and Share](#5-save-and-share)
 
-#### 1. Sign up for the Watson Studio
+#### 1. Create a new Watson Studio project
 
-Log in or sign up for IBM's [Watson Studio](https://dataplatform.cloud.ibm.com/).
+* Log into IBM's [Watson Studio](https://dataplatform.cloud.ibm.com). Once in, you'll land on the dashboard.
 
-> Note: if you would prefer to skip the remaining Watson Studio set-up steps and just follow along by viewing the completed Notebook, simply:
-> * View the completed [notebook](notebooks/predict_bank_cd_subs_by_xgboost_clf_for_imbalance_dataset.ipynb) and its outputs, as is.
-> * While viewing the notebook, you can optionally download it to store for future use.
-> * When complete, continue this code pattern by jumping ahead to the [Explore, Analyze and Predict CD Subscription for Bank Client](#explore-analyze-and-predict-cd-subscription-for-bank-client) section.
+* Create a new project by clicking `+ New project` and choosing `Data Science`:
 
-#### 2. Create a new Watson Studio project
+  ![studio project](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/new-project-data-science.png)
 
-* Select the `New Project` option from the Watson Studio landing page and choose the `Data Science` option.
+* Enter a name for the project name and click `Create`.
 
-![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/project_choices.png)
+* **NOTE**: By creating a project in Watson Studio a free tier `Object Storage` service and `Watson Machine Learning` service will be created in your IBM Cloud account. Select the `Free` storage type to avoid fees.
 
-* To create a project in Watson Studio, give the project a name and either create a new `Cloud Object Storage` service or select an existing one from your IBM Cloud account.
-
-![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/new_project.png)
+  ![studio-new-project](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/new-project-data-science-name.png)
 
 * Upon a successful project creation, you are taken to a dashboard view of your project. Take note of the `Assets` and `Settings` tabs, we'll be using them to associate our project with any external assets (datasets and notebooks) and any IBM cloud services.
 
-![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/project_dashboard.png)
+  ![studio-project-dashboard](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/overview-empty.png)
 
-#### 3. Create the Spark service
+#### 2. Create the Notebook
 
-* In your project go to the `Settings` tab, scroll down to `Associated Services` and choose `+ Add service` -> `Spark`
+* From the new project `Overview` panel, click `+ Add to project` on the top right and choose the `Notebook` asset type.
 
-![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/add_service.png)
+![studio-project-dashboard](https://raw.githubusercontent.com/IBM/pattern-utils/master/watson-studio/add-assets-notebook.png)
 
-* Either choose and `Existing` Spark service, or create a `New` one
+* Fill in the following information:
 
-![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/add_existing_spark_service.png)
+  * Select the `From URL` tab. [1]
+  * Enter a `Name` for the notebook and optionally a description. [2]
+  * Under `Notebook URL` provide the following url: [https://github.com/IBM/xgboost-financial-predictions/blob/master/notebooks/predict_bank_cd_subs_by_xgboost_clf_for_imbalance_dataset.ipynb](https://github.com/IBM/xgboost-financial-predictions/blob/master/notebooks/predict_bank_cd_subs_by_xgboost_clf_for_imbalance_dataset.ipynb) [3]
+  * For `Runtime` select the `Python 3.5` option. [4]
 
-#### 4. Create the Notebook
-
-* From the project dashboard view, click the `Assets` tab, click the `+ New notebook` button.
-
-![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/new_notebook.png)
-
-* Give your notebook a name and select your desired runtime, in this case we'll be using the associated Spark runtime.
-
-![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/notebook_spark.png)
-
-* Now select the `From URL` tab to specify the URL to the notebook in this repository.
-
-![](https://raw.githubusercontent.com/IBM/pattern-images/master/watson-studio/notebook_with_url_spark.png)
-
-* Enter this URL:
-
-```
-https://github.com/IBM/xgboost-financial-predictions/blob/master/notebooks/predict_bank_cd_subs_by_xgboost_clf_for_imbalance_dataset.ipynb
-```
+  ![add notebook](https://github.com/IBM/pattern-utils/raw/master/watson-studio/notebook-create-url-py35.png)
 
 * Click the `Create` button.
 
-> Note: If queried for a Python version, select version `3.5`.
+* **TIP:** Once successfully imported, the notebook should appear in the `Notebooks` section of the `Assets` tab.
 
-#### 5. Upload data
+#### 3. Upload data
 
-* Return to the project dashboard view and select the `Assets` tab.
-* This project has 1 dataset (`/data/bank.csv`), which you can upload as a data asset in your project. Do this by loading the dataset into the pop up section on the right hand side. Please see a screenshot of what it should look like below.  
+* This project uses the dataset in [data/bank.csv](data/bank.csv). We need to load this asset to our project.
 
-![](doc/source/images/project-assets.png)
+* From the new project `Overview` panel, click `+ Add to project` on the top right and choose the `Data` asset type.
 
-* Once complete, go into your notebook in the edit mode (click on the pencil icon next to your notebook on the dashboard). 
-* Execute the first initial cells until you get to the first cell in the `Data Exploration` section.
-* To load the data asset into the notebook, you first need to clear out the cell of all code except for the last two lines (i.e. keep the last two lines that reference `data_row_all`). Then place the cursor at the top of the cell above the 2 remaining lines of code.  
+   ![add asset](https://github.com/IBM/pattern-utils/raw/master/watson-studio/add-assets-data.png)
+
+* A panel on the right of the screen will appear to assit you in uploading data. Follow the numbered steps in the image below.
+
+  * Ensure you're on the `Load` tab. [1]
+  * Click on the `browse` option. From your machine, browse to the location of the [`bank.csv`](data/bank.csv) file in this repository, and upload it. [not numbered]
+  * Once uploaded, go to the `Files` tab. [2]
+  * Ensure the `bank.csv` appears. [3]
+
+   ![add data](https://github.com/IBM/pattern-utils/raw/master/watson-studio/data-add-data-asset.png)
+
+#### 4. Run the notebook
+
+* Click the `(►) Run` button to start stepping through the notebook.
+
+* Stop at the `Data Exploration` section.
+
+* To load the data asset into the notebook, you first need to clear out the cell of all code except for the last two lines (i.e. keep the last two lines that reference `data_row_all`). Then place the cursor at the top of the cell above the 2 remaining lines of code.
+
 * Click on the `1001` data icon in the top right. The `bank.csv` data file should show up.
+
 * Click on it and select `Insert Pandas Data Frame`. Once you do that, a whole bunch of code will show up in your cell.
+
 * Remove the last two lines of the inserted code. These lines start with `df_data_1` and will cause errors if left in.
+
 * When complete, this is what your cell should look like:
 
 ![](doc/source/images/notebook-data-cell.png)
 
-#### 6. Run the notebook
-
-When a notebook is executed, what is actually happening is that each code cell in
-the notebook is executed, in order, from top to bottom.
-
-Each code cell is selectable and is preceded by a tag in the left margin. The tag
-format is `In [x]:`. Depending on the state of the notebook, the `x` can be:
-
-* A blank, this indicates that the cell has never been executed.
-* A number, this number represents the relative order this code step was executed.
-* A `*`, this indicates that the cell is currently executing.
-
-There are several ways to execute the code cells in your notebook:
-
-* One cell at a time.
-  * Select the cell, and then press the `Play` button in the toolbar.
-* Batch mode, in sequential order.
-  * From the `Cell` menu bar, there are several options available. For example, you
-    can `Run All` cells in your notebook, or you can `Run All Below`, that will
-    start executing from the first cell under the currently selected cell, and then
-    continue executing all cells that follow.
-* At a scheduled time.
-  * Press the `Schedule` button located in the top right section of your notebook
-    panel. Here you can schedule your notebook to be executed once at some future
-    time, or repeatedly at your specified interval.
-
-#### 7. Save and Share
+#### 5. Save and Share
 
 ##### How to save your work:
 
@@ -191,7 +165,7 @@ options to specify exactly what you want shared from your notebook:
 * A variety of `download as` options are also available in the menu.
 
 ### Explore, Analyze and Predict CD Subscription for Bank Client
- 
+
 #### 1. Explore the dataset
 
 The imbalanced dataset is from Portuguese banking institutions, and is based on phone calls to bank clients regarding the purchase of financial products offered by the bank (ie. Certificates of Deposit).
@@ -205,9 +179,9 @@ For this section we will mostly use Python based libraries such as XGBoost, Scik
 Data scientists typically perform data exploration to gain better insight into data. Here we will explore inputs for distribution, correlation and outliers, and outputs to note any class imbalance issues.
 
 #### 4. Create Scikit learn ML Pipelines for Data Processing
-  
-- Split the data into train and test sets.
-- Create an ML pipeline for data preparation.
+
+* Split the data into train and test sets.
+* Create an ML pipeline for data preparation.
 
 In typical machine learning applications, an ML pipeline is created so that all the steps that are done on a training data set can be easily applied to the test set.
 
@@ -234,23 +208,16 @@ Awesome job following along! Now go try and take this further or apply it to a d
 
 ## Links
 
-- Watson Studio: https://www.ibm.com/cloud/watson-studiodocs/content/analyze-data/creating-notebooks.html.
-- Pandas: https://pandas.pydata.org/
-- Data: https://archive.ics.uci.edu/ml/datasets/Bank+Marketing
-- Scikit Learn: https://scikit-learn.org/stable/
-- XGBoost: https://github.com/dmlc/xgboost
-- Matplotlib: https://matplotlib.org/
-- SeaBorn: https://seaborn.pydata.org
+* [Data Set](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing)
 
 ## Learn more
 
 * **Data Analytics Code Patterns**: Enjoyed this Code Pattern? Check out our other [Data Analytics Code Patterns](https://developer.ibm.com/technologies/data-science/)
 * **AI and Data Code Pattern Playlist**: Bookmark our [playlist](https://www.youtube.com/playlist?list=PLzUbsvIyrNfknNewObx5N7uGZ5FKH0Fde) with all of our Code Pattern videos
 * **Watson Studio**: Master the art of data science with IBM's [Watson Studio](https://www.ibm.com/cloud/watson-studio)
-* **Spark on IBM Cloud**: Need a Spark cluster? Create up to 30 Spark executors on IBM Cloud with our [Spark service](https://cloud.ibm.com/catalog/services/apache-spark)
 
 ## License
 
-This code pattern is licensed under the Apache Software License, Version 2.  Separate third party code objects invoked within this code pattern are licensed by their respective providers pursuant to their own separate licenses. Contributions are subject to the Developer [Certificate of Origin, Version 1.1 (DCO)] (https://developercertificate.org/) and the [Apache Software License, Version 2] (http://www.apache.org/licenses/LICENSE-2.0.txt).
+This code pattern is licensed under the Apache License, Version 2. Separate third-party code objects invoked within this code pattern are licensed by their respective providers pursuant to their own separate licenses. Contributions are subject to the [Developer Certificate of Origin, Version 1.1](https://developercertificate.org/) and the [Apache License, Version 2](https://www.apache.org/licenses/LICENSE-2.0.txt).
 
-ASL FAQ link: http://www.apache.org/foundation/license-faq.html#WhatDoesItMEAN
+[Apache License FAQ](https://www.apache.org/foundation/license-faq.html#WhatDoesItMEAN)

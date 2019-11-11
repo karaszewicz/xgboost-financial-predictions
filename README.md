@@ -98,29 +98,7 @@ This project uses the dataset in [data/bank.csv](data/bank.csv). We need to load
 1. On your machine, browse to the location of the file **bank.csv** in this repository in the **data/** directory. Select the file and click on Open (or the equivalent action for your operating system). Once successfully uploaded, the file should appear in the `Data Assets` section of `Assets`.
 
 
-### 3. Associate a Watson Machine Learning Service to the Project
-
-1. Next we have to associate a Watson Machine Learning service to the project. 
-    - Click on `Settings` tab on the top banner of the project, 
-    - then `Add Service` under `Associate Services` and 
-    - finally, select `Watson` to add a Watson service to the project.
-
-    ![Associate Service Settings](doc/source/images/settings.png)
-
-1. Select `Add` link in the `Machine Learning` tile from the list of available Watson Services.
-
-    ![Add Associated Service](doc/source/images/add-associated-service.png)
-
-1. Click on the `Existing` tab and select the name of your Machine Learning service instance.
-
-    ![Add Existing ML Service](doc/source/images/choose-ml-service.png)
-
-1. Click `Select`.
-
-1. The Watson Machine Learning service is now listed as one of your `Associated Services`.
-
-
-### 4. Create the Notebook
+### 3. Create the Notebook
 
 1. From the new project `Overview` panel, click `+ Add to project` on the top right and choose the `Notebook` asset type.
 
@@ -156,7 +134,7 @@ This project uses the dataset in [data/bank.csv](data/bank.csv). We need to load
 >**TIP:** Once successfully imported, the notebook window should appear and it's also listed in the `Notebooks` section of the `Assets` tab.
 
 
-### 5. Save and Share
+### 4. Save and Share
 
 Under the `File` menu, there are several ways to save your notebook:
 

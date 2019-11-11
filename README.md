@@ -149,7 +149,9 @@ This project uses the dataset in [data/bank.csv](data/bank.csv). We need to load
 
 8. Select `Kernel` -> `Restart & Clear Output`.
 
-9. Follow the instructions in the notebook to complete the exercise. Click the `(►) Run` button to start stepping through the notebook. 
+9. When prompted, select `Restart & Clear All Outputs`.
+
+10. Follow the instructions in the notebook to complete the exercise. Click the `(►) Run` button to start stepping through the notebook. 
 
 >**TIP:** Once successfully imported, the notebook window should appear and it's also listed in the `Notebooks` section of the `Assets` tab.
 

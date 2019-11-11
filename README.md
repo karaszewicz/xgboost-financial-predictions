@@ -147,7 +147,9 @@ This project uses the dataset in [data/bank.csv](data/bank.csv). We need to load
 
 7. After a few seconds, the notebook becomes `Trusted`.
 
-8. Follow the instructions in the notebook to complete the exercise. Click the `(►) Run` button to start stepping through the notebook. 
+8. Select `Kernel` -> `Restart & Clear Output`.
+
+9. Follow the instructions in the notebook to complete the exercise. Click the `(►) Run` button to start stepping through the notebook. 
 
 >**TIP:** Once successfully imported, the notebook window should appear and it's also listed in the `Notebooks` section of the `Assets` tab.
 

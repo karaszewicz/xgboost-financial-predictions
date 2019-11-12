@@ -145,7 +145,7 @@ Under the `File` menu, there are several ways to save your notebook:
   saved, each one retrievable by selecting the `Revert To Version` menu item.
 
 
-### 6. Sample Output
+### 5. Sample Output
 
 The following screen-shots show that we set the weight on the positive sample to be 1000 and the feature selection threshold to be 0.008. In the third attempt running this tuned classifier, we find that our recall for an imbalanced positive sample has improved to 0.84 on the test data.
 
